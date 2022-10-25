@@ -11,6 +11,10 @@ The script uses characters in the Unicode block Mathematical Alphanumeric
 Symbols (`U+1D400–U+1D7FF`), which is not supported by most fonts. 𝘚𝘰 𝘵𝘩𝘦 𝘵𝘦𝘹𝘵
 𝘮𝘪𝘨𝘩𝘵 𝘴𝘩𝘰𝘸 𝘪𝘯 𝘢 𝘥𝘪𝘧𝘧𝘦𝘳𝘦𝘯𝘵 𝘧𝘰𝘯𝘵, 𝗼𝗿 𝗻𝗼𝘁 𝗮𝘁 𝗮𝗹𝗹.
 
+### Usage
+
+Just select the text inside a `<input>` or `<textarea>` and click `Ctrl+I` for italic or `Ctrl+B` for bold.
+
 ## Notes
 
 * Only alphabetic characters are supported. Anything outside the Latin alphabet (any
@@ -29,7 +33,7 @@ the combining character for the diacritic.
 
   ```
   𝘦       U+1D626     MATHEMATICAL SANS-SERIF ITALIC SMALL E
-  ◌́       U+0301  	COMBINING ACUTE ACCENT
+  ◌́       U+0301    COMBINING ACUTE ACCENT
   ```
 
 * Many web apps use normal `<div>` elements with `contenteditable="true"`, instead of
