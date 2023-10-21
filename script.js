@@ -3,7 +3,7 @@
 // @namespace   https://github.com/kugland
 // @match       *://*/*
 // @grant       none
-// @version     1.0.6
+// @version     1.0.7
 // @author      André Kugland
 // @description Bold/italic in normal <input>/<textarea> elements
 // @license     MIT
@@ -11,18 +11,16 @@
 // @run-at      document-body
 // ==/UserScript==
 
-const regularAlphabet = 'A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z';
-const boldAlphabet = '𝗔|𝗕|𝗖|𝗗|𝗘|𝗙|𝗚|𝗛|𝗜|𝗝|𝗞|𝗟|𝗠|𝗡|𝗢|𝗣|𝗤|𝗥|𝗦|𝗧|𝗨|𝗩|𝗪|𝗫|𝗬|𝗭|𝗮|𝗯|𝗰|𝗱|𝗲|𝗳|𝗴|𝗵|𝗶|𝗷|𝗸|𝗹|𝗺|𝗻|𝗼|𝗽|𝗾|𝗿|𝘀|𝘁|𝘂|𝘃|𝘄|𝘅|𝘆|𝘇';
-const italicAlphabet = '𝘈|𝘉|𝘊|𝘋|𝘌|𝘍|𝘎|𝘏|𝘐|𝘑|𝘒|𝘓|𝘔|𝘕|𝘖|𝘗|𝘘|𝘙|𝘚|𝘛|𝘜|𝘝|𝘞|𝘟|𝘠|𝘡|𝘢|𝘣|𝘤|𝘥|𝘦|𝘧|𝘨|𝘩|𝘪|𝘫|𝘬|𝘭|𝘮|𝘯|𝘰|𝘱|𝘲|𝘳|𝘴|𝘵|𝘶|𝘷|𝘸|𝘹|𝘺|𝘻';
-const boldItalicAlphabet = '𝘼|𝘽|𝘾|𝘿|𝙀|𝙁|𝙂|𝙃|𝙄|𝙅|𝙆|𝙇|𝙈|𝙉|𝙊|𝙋|𝙌|𝙍|𝙎|𝙏|𝙐|𝙑|𝙒|𝙓|𝙔|𝙕|𝙖|𝙗|𝙘|𝙙|𝙚|𝙛|𝙜|𝙝|𝙞|𝙟|𝙠|𝙡|𝙢|𝙣|𝙤|𝙥|𝙦|𝙧|𝙨|𝙩|𝙪|𝙫|𝙬|𝙭|𝙮|𝙯';
+const regular = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const bold = '𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇';
+const italic = '𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻';
+const boldItalic = '𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯';
 
-function translate(str, alphabet1, alphabet2) {
-  const regex1 = new RegExp(`(${alphabet1})`, 'g');
-  const regex2 = new RegExp(`(${alphabet2})`, 'g');
-  const [fromRegex, from, to] = str.match(regex1) ? [regex1, alphabet1, alphabet2] : [regex2, alphabet2, alphabet1];
-  const toAlphabet = to.split('|');
-  const map = from.split('|').reduce((a, b, c) => ({ ...a, [b]: toAlphabet[c] }), {});
-  return str.replaceAll(fromRegex, (c) => map[c]);
+function translate(str, alpha1, alpha2) {
+  const [regex1, regex2] = [alpha1, alpha2].map(a => new RegExp(`[${a}]`, 'gu'));
+  const [regex, from, to] = str.match(regex1) ? [regex1, alpha1, [...alpha2]] : [regex2, alpha2, [...alpha1]];
+  const map = [...from].reduce((a, b, c) => ({ ...a, [b]: to[c] }), {});
+  return str.replaceAll(regex, (c) => map[c]);
 }
 
 document.body.addEventListener('keyup', (e) => {
@@ -41,9 +39,9 @@ document.body.addEventListener('keyup', (e) => {
 
     selection = selection.normalize('NFD');
     if (e.key == 'i') {
-      selection = translate(selection, `${regularAlphabet}|${boldAlphabet}`, `${italicAlphabet}|${boldItalicAlphabet}`);
+      selection = translate(selection, regular + bold, italic + boldItalic);
     } else if (e.key == 'b') {
-      selection = translate(selection, `${regularAlphabet}|${italicAlphabet}`, `${boldAlphabet}|${boldItalicAlphabet}`);
+      selection = translate(selection, regular + italic, bold + boldItalic);
     }
     selection = selection.normalize('NFC');
 
