@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Poor man’s italic/bold
-// @namespace   Violentmonkey Scripts
+// @namespace   https://github.com/kugland
 // @match       *://*/*
 // @grant       none
-// @version     1.0.5
+// @version     1.0.6
 // @author      André Kugland
 // @description Bold/italic in normal <input>/<textarea> elements
 // @license     MIT
