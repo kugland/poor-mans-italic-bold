@@ -44,4 +44,4 @@ won’t play nicely with controlled components in React or other similar framewo
 
 Written by André Kugland.
 
-Inspired by [https://yaytext.com/bold-italic/](https://yaytext.com/bold-italic/) and other similar sites.
+Inspired by [https://yaytext.com/bold-italic/](https://yaytext.com/bold-italic/).
