@@ -1,9 +1,13 @@
 # Poor man’s italic/bold
 
+![Greasy Fork Version](https://img.shields.io/greasyfork/v/453505-poor-man-s-italic-bold) ![Greasy Fork Rating](https://img.shields.io/greasyfork/rating-count/453505-poor-man-s-italic-bold) ![Greasy Fork License](https://img.shields.io/greasyfork/l/453505-poor-man-s-italic-bold)
+
 This script allows you to use *italic* (actually 𝘪𝘵𝘢𝘭𝘪𝘤) and **bold** (𝗯𝗼𝗹𝗱)
 inside normal `<input>` and `<textarea>` elements.
 
-[Link on Greasyfork](https://greasyfork.org/en/scripts/453505-poor-man-s-italic-bold)
+**GitHub page:** [https://github.com/kugland/poor-mans-italic-bold](https://github.com/kugland/poor-mans-italic-bold)
+
+**Greasy Fork page:** [https://greasyfork.org/scripts/453505-poor-man-s-italic-bold](https://greasyfork.org/scripts/453505-poor-man-s-italic-bold)
 
 ## Detailed description
 
